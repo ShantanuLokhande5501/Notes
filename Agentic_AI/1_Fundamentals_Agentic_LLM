@@ -1,0 +1,43 @@
+
+# https://www.anthropic.com/engineering/building-effective-agents
+
+
+-- INTRODUCTION
+1. Agents general definition - Autonomous systems that operate independently over extended periods, using various tools to accomplish various tasks. 
+2. Workflows : LLM + Tools + predefined code pathways
+3. Agents  : LLM maintain the enitre control of the flow of execution and tool usage. 
+
+4. Try to find the simplest solution possible. increase complexity iff absolutely necessary.
+5. flexible tasks / not predefined  / need on the fly thinking : use agents
+6. well defined tasks / predictable : use workflows. 
+7. Agents trade latency and cost for better task performance. 
+
+
+-- BUILDING BLOCK : THE AUGMENTED LLM.
+1. Augmentation : LLM enhanced with retreival, tools and memory.
+
+2. WORKFLOW -
+    1. Prompt Chaining : Decompose a task into a sequence of steps where each LLM call processes the output of the previous one. These can be enhanced more with programatic checks for pass and fail conditions.  Use when tasks can be easily decomposed into fixed sub-tasks. Tradeoff latency for higher accuracy as each LLM call is an easier subtask. 
+    2. Routing : Classifies a task and directs it to a specialized followup task. Use when there are different categories that can be handled better seperately. 
+    3. Parallelization : LLMs can simultaneously work on a task and have thier outputs aggregated programmatically. It can manifest as two parts : sectioning [same task broken into multiple sub-tasks], voting [one task run multiple times to get diverse outputs]. use when divided subtasks can be paralleized for speed, or when multiple perspective or attempts are needed for higher confidence results.
+    4. Orchestrator-workers : Central LLM breaks down tasks, delegates them to smaller worker LLMs and then synthesizes their outputs. This offers more flexibility than parallelization as the sub-tasks aren't predefined but are defined by the Cental LLM. Use it for complex tasks when there are sub-tasks that can't be predicted. 
+    5. Evaluator-optimizer : Where one LLM generates output and another one provides feedback in a loop. Use it when we have a clear evaluation criteria and iterative refinement provides measurable value. 
+
+3. Agents - 
+    1. LLMs mature in key capabilities—understanding complex inputs, engaging in reasoning and planning, using tools reliably, and recovering from errors.
+    2. The begin with a command and an interactive discussion with the human user until the task is clear. 
+    3. Once the task is clear, agents plan and operate independently and might occasionally return the the human user for inputs or judgement calls. 
+    4. At each step the agent asseses it's progress to know the ground truth.
+    5. It's common to include stopping conditions to maintain control. 
+    6. They are typically just LLMs using tools based on environmental feedback in a loop. 
+    7. Agents can be used for open-ended problems where it’s difficult or impossible to predict the required number of steps, and where you can’t hardcode a fixed path
+    8. Autonomy means higher costs and potential for compounding errors. So extensive testing in sandbox environments is needed. 
+
+4. Consider adding complexity ONLY when it demonstrably improves outcomes.
+
+
+-- SUMMARY 
+1. Start with simple prompts and evaluate extensively. Only add complexity if it improves outcomes. 
+2. Maintain simplicity, prioritize transparancy , do rigorous documentation and testing
+
+
