@@ -41,3 +41,58 @@
 2. Maintain simplicity, prioritize transparancy , do rigorous documentation and testing
 
 
+
+
+
+# https://huggingface.co/learn/agents-course/en/unit1/introduction
+
+
+1. Query --> Reasoning and planning --> Use of tools from the list --> interacting with the environment. 
+2. We call it Agent because it has agency, aka it has the ability to interact with the environment.
+3. The model is the brain of the agent that does the reasoning and planning, and the tools are the body of the agent that do the execution. 
+4. An LLM is an type of AI model that excels in generating and understanding human langauge. 
+5. There are 3 types of transformer architectures. [Encoders, Decoders, Seq2Seq (encoder decoder combined) ].
+
+6. The underlying principle of LLM is simple : it's to predict the next token given a sequence of previous tokens. 
+7. A token is a unit of information an LLM works with. 
+8. Each LLM has special tokens that are specific to the model, that determine the open and closing of the content that is to be fed into the model for generation. Most important of such tokens is the EOS [end of sequence] token. 
+
+9. LLM's are said to to be auto regressive. Means that ouput from one pass becomes the input to the next one. This loop continues until the model predicts the next token to be an EOS token. 
+10. What happens during a single decoding loop ? : text is tokenized using representations[has info about meaning and position] ; based on the representation the model then outputs all the tokens in it's vocabulary with the probability of it being the next token, based on these score we can use multiple strategies to select the next token in the sequence. 
+
+11. Transformers succeed because of their ability to focus on the words that are important to the context. "Attention".
+12. Context length : the max nuber of tokens that it can process and the max attention span that it has. 
+13. Prompting is important as LLM looks at the tokens it is given to predict the next tokens. 
+14. LLM Training : large set of text data + unsupervised learning = identification of underlying patterns and genralization to unseen data. 
+
+15. System messages / System prompts : these define how the model should behave, these are presistent instructions that guide every subsequent interaction. 
+16. These prompts also tell the model on the tools to use, instructions, actions and segmenting the thought process. 
+17. Base model : trained to predict the next token ; Instruct model : base model fine-tuned to behave a certain way, eg. chatbot. 
+
+18. Tool : a tool is a function that is given to an LLM. This function should fullfill a clear objective. 
+19. A good tool should compliment LLM. 
+
+
+
+
+# First API hit. 
+
+'''
+# calling the library
+import anthropic
+
+#object initialization, reads the API key from the terminal.
+client = anthropic.Anthropic()
+
+#actual message data
+message = client.messages.create(
+  model="claude-sonnet-5",
+  max_tokens=512, # max response size
+  messages=[{
+    "role": "user",
+    "content": "Hi, this is a test run to check if my api is hitting claude properly or not. I am learning about AI Agents"
+  }]
+)
+print(message.content[0].text)
+
+'''
