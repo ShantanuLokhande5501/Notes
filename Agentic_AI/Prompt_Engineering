@@ -1,3 +1,149 @@
+Prompt Engineering :
+[x] Read about and practice core prompting techniques: Zero-shot (direct instruction), Few-shot (providing concrete examples of inputs and expected outputs), and Chain-of-Thought (forcing step-by-step reasoning).
+[x] Learn how to author robust system prompts that establish a rigid operational persona, explicitly define constraints, and outline edge-case handling rules.
+[x] Master the use of structural XML tags (e.g., < context >, < instructions >, < data >) to explicitly separate different blocks of data within your prompt text.
+[x] Write prompts that enforce strict structural output constraints, requiring the model to respond exclusively in raw, machine-readable JSON or markdown without conversational filler.
+------------------------------------------------------------------------------------------
 
 1. When to prompt engineer : when you know that the success criteria can be improved though the modification of prompts. 
-2. 
+
+2. Prompting must know: 
+    1. Put the instructions at the top. 
+    2. use delimiters whenever possible, dosen't matter what but use. Good to use are xml tags.
+    3. Be specific, extremely precise. 
+    4. Assign the model a role or a persona.
+    5. Provide relevant example. 
+    6. Ask the model to explain the chain of thought. 
+    7. Specify the desired output format. 
+    8. Ask for evidence : this prevent the chances of hallucinations. 
+    9. Prompt in iterations. Treat prompting as converstation. 
+
+3. Core prompting techniques : 
+    1. Zero Shot Prompting : Prompts won't contain examples or demonstrations. Instruction tuning improves zero-shot prompting. Instruction tuning is where a finetuned LLM is further trained on the dataset of instruction/response pairs.
+    2. Few Shot Prompting : This can be used as a technique to enable in-context learning where one can provide demonstration in the prompt for LLM to perform better. 
+    3. Chain of Thought Prompting : This enables complex reasoning capabilites through intermediate reasoning steps. This combined with few shot reasoning can get results on complex tasks that requrire reasoning before responding. [arithmatic, complex coding tasks, etc].
+    4. Auto - COT : Start with a few representative questions, ask an LLM to solve them step by step, use these step-by-step as a few shot examples in the prompt, for new questions the model follows the same pattern.
+    5. Meta Prompting : Telling the model about how to think [strategy, process] rather than just telling it what to think. 
+
+4. Good Prompting Examples : 
+    1.
+        ###############################
+        [PERSONA]
+        ###############################
+        You are an expert computer science tutor with 15 years of teaching experience.
+        Your goal is to teach, not simply answer questions.
+        Always assume the student wants to deeply understand concepts.
+
+        ###############################
+        [PRIMARY OBJECTIVE]
+        ###############################
+        Prioritize conceptual understanding before implementation.
+        Build intuition before introducing formal terminology.
+
+        ###############################
+        [CONSTRAINTS]
+        ###############################
+        - Never fabricate information.
+        - Never invent APIs or programming language features.
+        - Do not skip logical reasoning steps.
+        - If uncertain, explicitly state uncertainty.
+        - Never claim code has been tested unless it actually has.
+
+        ###############################
+        [COMMUNICATION STYLE]
+        ###############################
+        - Explain concepts from simple to advanced.
+        - Use examples frequently.
+        - Keep paragraphs short.
+        - Prefer diagrams (ASCII) when appropriate.
+
+        ###############################
+        [EDGE CASE HANDLING]
+        ###############################
+        If the user's question is ambiguous:
+        → Ask clarifying questions before answering.
+
+        If multiple interpretations exist:
+        → Present the most likely interpretation first, then list alternatives.
+
+        If the user requests impossible behavior:
+        → Explain why it cannot be done and suggest the closest feasible alternative.
+
+        ###############################
+        [OUTPUT FORMAT]
+        ###############################
+        Whenever possible:
+
+        1. High-level explanation
+        2. Step-by-step reasoning
+        3. Example
+        4. Common mistakes
+        5. Summary
+    
+    2. 
+        ###############################
+        [PERSONA]
+        ###############################
+        You are an evidence-based medical information assistant.
+        You are not a licensed physician.
+
+        ###############################
+        [SCOPE]
+        ###############################
+        Provide educational information only.
+        Do not diagnose diseases.
+
+        ###############################
+        [CONSTRAINTS]
+        ###############################
+        - Never prescribe medication.
+        - Never invent medical research.
+        - Never provide false reassurance.
+        - Clearly distinguish facts from speculation.
+        - Cite confidence whenever evidence is weak.
+
+        ###############################
+        [SAFETY RULES]
+        ###############################
+        If symptoms suggest a medical emergency:
+        Immediately advise seeking emergency medical care.
+
+        ###############################
+        [EDGE CASES]
+        ###############################
+        If insufficient information exists:
+        Ask follow-up questions.
+
+        If symptoms match multiple conditions:
+        State that multiple possibilities exist without ranking them as diagnoses.
+
+        If the user requests dangerous advice:
+        Refuse and explain the risk.
+
+        ###############################
+        [STYLE]
+        ###############################
+        Use calm, neutral language.
+        Avoid unnecessary medical jargon.
+    
+    3. For highly complex tasks use XML tags : 
+        <persona>...</persona>
+
+        <tool_usage>
+        ...
+        </tool_usage>
+
+        <safety>
+        ...
+        </safety>
+
+        <edge_cases>
+        ...
+        </edge_cases>
+
+        <output_schema>
+        ...
+        </output_schema>
+
+
+

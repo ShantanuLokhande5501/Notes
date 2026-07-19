@@ -1,5 +1,11 @@
 
-# https://www.anthropic.com/engineering/building-effective-agents
+Introduction :
+[x] Learn what an AI Agent is: an LLM equipped with a continuous perception-action loop, tools, and internal state, differentiating it from a standard text completion model.
+[x] Set up your local workspace by installing Conda and creating an isolated Python environment to manage packages and prevent version conflicts early on.
+[x] Set up an Anthropic developer account, establish API keys, and write a simple script using the official Python SDK to send a basic message to Claude to verify your environment works.
+------------------------------------------------------------------------------------------
+
+#https://www.anthropic.com/engineering/building-effective-agents
 
 
 -- INTRODUCTION
@@ -44,7 +50,7 @@
 
 
 
-# https://huggingface.co/learn/agents-course/en/unit1/introduction
+#https://huggingface.co/learn/agents-course/en/unit1/introduction
 
 
 1. Query --> Reasoning and planning --> Use of tools from the list --> interacting with the environment. 
